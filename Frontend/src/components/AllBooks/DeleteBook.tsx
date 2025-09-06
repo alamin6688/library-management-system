@@ -31,6 +31,7 @@ const DeleteBook: React.FC<DeleteBookProps> = ({
     onClose();
   };
 
+  
   return (
     <AlertDialog open={true} onOpenChange={onClose}>
       <AlertDialogTrigger asChild>
