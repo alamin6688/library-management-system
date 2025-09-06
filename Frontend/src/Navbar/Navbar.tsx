@@ -7,6 +7,7 @@ const Navbar: React.FC = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   const navLinks = [
+    { name: "Home", path: "/" },
     { name: "All Books", path: "/books" },
     { name: "Add Book", path: "/create-book" },
     { name: "Borrow Summary", path: "/borrow-summary" },
