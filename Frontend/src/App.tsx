@@ -1,12 +1,15 @@
-import "./App.css";
+import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
-   <Navbar></Navbar>
+      <Navbar />
+      <div className="p-4">
+        <Outlet />
+      </div>
     </>
   );
-}
+};
 
 export default App;
