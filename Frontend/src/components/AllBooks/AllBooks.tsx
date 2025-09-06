@@ -12,11 +12,6 @@ const AllBooks: React.FC = () => {
 
   return (
     <div>
-      <div className="text-center">
-        <h1 className="text-2xl font-bold ">All Books</h1>
-        <p>Here is a list of all books.</p>
-      </div>
-
       <BookAddModal></BookAddModal>
       <BookPage></BookPage>
     </div>

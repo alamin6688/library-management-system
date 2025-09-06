@@ -3,11 +3,13 @@
 import { DataTable } from "./data-table";
 import { useGetbooksQuery } from "@/redux/api/bookApi";
 import { getColumns, type Book } from "./columns";
-// import { useState } from "react";
-// import UpdateForm from "../updateItem/UpdateItem";
+import { useState } from "react";
+import UpdateForm from "./UpdateBook";
+import DeleteBook from "./DeleteBook";
 
 function BookPage() {
-  // const [editItem, setEditItem] = useState<Book | null>(null);
+  const [editItem, setEditItem] = useState<Book | null>(null);
+  const [deletingBook, setDeletingBook] = useState<Book | null>(null);
   const { data, isLoading } = useGetbooksQuery(undefined);
 
   if (isLoading) {
@@ -15,25 +17,36 @@ function BookPage() {
   }
 
   const handleEdit = (book: Book) => {
-    // setEditItem(book);
+    setEditItem(book);
     console.log("Edit book:", book);
   };
+
+  const handleDelete = (book: Book) => setDeletingBook(book);
 
   return (
     <div className="p-6">
       <h2 className="pb-6 text-xl font-semibold">Books</h2>
 
-      {/* <DataTable columns={getColumns(handleEdit)} data={data?.data}></DataTable> */}
+      {/* <DataTable columns={getColumns(handleEdit, handleDelete)} data={data?.data ?? []} /> */}
 
-      <DataTable columns={getColumns(handleEdit)} data={data?.data ?? []} />
+      <DataTable columns={getColumns(handleEdit, handleDelete)} data={data?.data ?? []} />
 
-      {/* {editItem && (
+
+      {editItem && (
         <UpdateForm
-          item={editItem}
+          book={editItem}
           open={true}
           onClose={() => setEditItem(null)}
         />
-      )} */}
+      )}
+
+      {deletingBook && (
+        <DeleteBook
+          bookId={deletingBook._id}
+          bookTitle={deletingBook.title}
+          onClose={() => setDeletingBook(null)}
+        />
+      )}
     </div>
   );
 }
