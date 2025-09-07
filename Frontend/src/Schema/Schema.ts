@@ -16,3 +16,12 @@ export const bookSchema = z.object({
 
 // ✅ Type for form data
 export type BookFormData = z.infer<typeof bookSchema>;
+
+export interface Borrow{
+  quantity: number;
+  dueDate: string;
+  book: {
+    title: string;
+    isbn: string;
+  };
+}

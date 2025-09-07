@@ -5,8 +5,9 @@ export const booksApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://library-management-mongoose.vercel.app/api/",
   }),
-  tagTypes: ["book"],
+  tagTypes: ["book", "borrow"],
   endpoints: (build) => ({
+    // --- Books ---
     getbooks: build.query({
       query: () => `books`,
       providesTags: ["book"],
@@ -37,8 +38,38 @@ export const booksApi = createApi({
       }),
       invalidatesTags: ["book"],
     }),
+
+    // --- Borrow ---
+    getBorrowedBooks: build.query({
+      query: () => `borrow`,
+      providesTags: ["borrow"],
+    }),
+
+    borrowBooks: build.mutation({
+      query: (body) => ({
+        url: `borrow`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["borrow", "book"],
+    }),
+    //  borrowBooks: build.mutation<void, { book: string; quantity: number; dueDate: string }>({
+    //   query: (body) => ({
+    //     url: "borrow",
+    //     method: "POST",
+    //     body,
+    //   }),
+    //   invalidatesTags: ["borrow"],
+    // }),
+
   }),
 });
 
-export const { useGetbooksQuery, useAddBooksMutation, useUpdatebookMutation, useDeletebookMutation } =
-  booksApi;
+export const {
+  useGetbooksQuery,
+  useAddBooksMutation,
+  useUpdatebookMutation,
+  useDeletebookMutation,
+  useGetBorrowedBooksQuery,
+  useBorrowBooksMutation,
+} = booksApi;

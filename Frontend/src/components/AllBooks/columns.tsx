@@ -1,6 +1,6 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import { PenIcon, XIcon } from "lucide-react";
+import { PenIcon, XIcon, NotebookPen  } from "lucide-react";
 
 
 export interface Book {
@@ -16,7 +16,7 @@ export interface Book {
   updatedAt?: string;
 }
 
-export const getColumns = (onEdit: (book: Book) => void, onDelete: (book: Book) => void): ColumnDef<Book>[] => [
+export const getColumns = (onEdit: (book: Book) => void, onDelete: (book: Book) => void, onBorrow: (book: Book) => void): ColumnDef<Book>[] => [
   {
     accessorKey: "title",
     header: "Title",
@@ -83,7 +83,16 @@ export const getColumns = (onEdit: (book: Book) => void, onDelete: (book: Book) 
           <Button
             size="icon"
             variant="ghost"
-            className="bg-blue-500 text-white"
+            className="bg-green-700 text-white"
+            onClick={() => onBorrow(book)}
+          >
+            <NotebookPen  className="w-4 h-4" />
+          </Button>
+          
+          <Button
+            size="icon"
+            variant="ghost"
+            className="bg-blue-600 text-white"
             onClick={() => onEdit(book)}
           >
             <PenIcon className="w-4 h-4" />
@@ -92,7 +101,7 @@ export const getColumns = (onEdit: (book: Book) => void, onDelete: (book: Book) 
           <Button
             size="icon"
             variant="ghost"
-            className="bg-red-500 text-white"
+            className="bg-red-600 text-white"
             onClick={() => onDelete(book)}
           >
             <XIcon className="w-4 h-4" />
